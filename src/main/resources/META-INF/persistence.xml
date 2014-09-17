@@ -3,6 +3,9 @@
   <persistence-unit name="com.thjug_JsfCrud_war_1.0PU" transaction-type="JTA">
     <jta-data-source>jdcb/thjug</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+	<properties>
+			<property name="eclipselink.logging.level" value="FINE"/>
+			<property name="eclipselink.logging.parameters" value="true"/>
+    </properties>
   </persistence-unit>
 </persistence>
