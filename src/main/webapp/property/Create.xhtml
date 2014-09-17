@@ -17,7 +17,7 @@
                         <p:inputText id="string" value="#{propertyController.selected.string}" title="#{bundle.CreatePropertyTitle_string}" required="true" requiredMessage="#{bundle.CreatePropertyRequiredMessage_string}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{propertyController.create}" value="#{bundle.Save}" update="display,:PropertyListForm:datalist,:growl" oncomplete="handleSubmit(args,'PropertyCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PropertyCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('PropertyCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
