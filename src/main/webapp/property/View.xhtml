@@ -16,7 +16,7 @@
                         <h:outputText value="#{bundle.ViewPropertyLabel_string}"/>
                         <h:outputText value="#{propertyController.selected.string}" title="#{bundle.ViewPropertyTitle_string}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PropertyViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('PropertyViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

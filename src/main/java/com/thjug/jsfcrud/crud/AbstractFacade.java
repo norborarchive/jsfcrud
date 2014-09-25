@@ -1,63 +1,75 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Attribution
+ * CC BY
+ * This license lets others distribute, remix, tweak,
+ * and build upon your work, even commercially,
+ * as long as they credit you for the original creation.
+ * This is the most accommodating of licenses offered.
+ * Recommended for maximum dissemination and use of licensed materials.
+ *
+ * http://creativecommons.org/licenses/by/3.0/
+ * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-
 package com.thjug.jsfcrud.crud;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
- * @author PeerapatAsoktummarun
+ * @author nuboat
  */
 public abstract class AbstractFacade<T> {
-	private Class<T> entityClass;
+	private final Class<T> entityClass;
 
-	public AbstractFacade(Class<T> entityClass) {
+	public AbstractFacade(final Class<T> entityClass) {
 		this.entityClass = entityClass;
 	}
 
 	protected abstract EntityManager getEntityManager();
 
-	public void create(T entity) {
+	public void create(final T entity) {
 		getEntityManager().persist(entity);
 	}
 
-	public void edit(T entity) {
+	public void edit(final T entity) {
 		getEntityManager().merge(entity);
 	}
 
-	public void remove(T entity) {
+	public void remove(final T entity) {
 		getEntityManager().remove(getEntityManager().merge(entity));
 	}
 
-	public T find(Object id) {
+	public T find(final Object id) {
 		return getEntityManager().find(entityClass, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
-		javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+		final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
 		cq.select(cq.from(entityClass));
 		return getEntityManager().createQuery(cq).getResultList();
 	}
 
-	public List<T> findRange(int[] range) {
-		javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+	@SuppressWarnings("unchecked")
+	public List<T> findRange(final int[] range) {
+		final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
 		cq.select(cq.from(entityClass));
-		javax.persistence.Query q = getEntityManager().createQuery(cq);
+		final Query q = getEntityManager().createQuery(cq);
 		q.setMaxResults(range[1] - range[0] + 1);
 		q.setFirstResult(range[0]);
 		return q.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	public int count() {
-		javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-		javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
+		final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+		final Root<T> rt = cq.from(entityClass);
 		cq.select(getEntityManager().getCriteriaBuilder().count(rt));
-		javax.persistence.Query q = getEntityManager().createQuery(cq);
+		final Query q = getEntityManager().createQuery(cq);
 		return ((Long) q.getSingleResult()).intValue();
 	}
 
