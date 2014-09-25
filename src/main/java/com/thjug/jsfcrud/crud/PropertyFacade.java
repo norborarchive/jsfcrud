@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.thjug.jsfcrud.crud;
 
 import com.thjug.jsfcrud.entity.Property;
@@ -17,16 +16,17 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class PropertyFacade extends AbstractFacade<Property> {
+
 	@PersistenceContext(unitName = "com.thjug_JsfCrud_war_1.0PU")
 	private EntityManager em;
+
+	public PropertyFacade() {
+		super(Property.class);
+	}
 
 	@Override
 	protected EntityManager getEntityManager() {
 		return em;
-	}
-
-	public PropertyFacade() {
-		super(Property.class);
 	}
 
 }
